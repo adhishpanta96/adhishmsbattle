@@ -22,12 +22,17 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-moves = ['T', 'L', 'R']
+moves = ['F','T', 'L', 'R']
 
 @app.route("/", methods=['POST'])
 def move():
     request.get_data()
-    logger.info(request.json)
+    # logger.info(request.json)
+    data = request.json
+    self_link = (data['_links']['self']['href'])
+    states = data['arena']
+    print (states)
+    print (data)
     
     return moves[random.randrange(len(moves))]
 
