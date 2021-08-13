@@ -27,7 +27,7 @@ moves = ['F', 'L', 'R']
 @app.route("/", methods=['POST'])
 def move():
     request.get_data()
-    # logger.info(request.json)
+    logger.info(request.json)
     
     data = request.json
     self_link = (data['_links']['self']['href'])
@@ -41,15 +41,15 @@ def move():
     # print (states)
     # print (len(states))
 
+
     for state in states:
           if state != self_link:    
             p = states[state]
-            if abs(p['x'] - self_x) <= 3:
+            if (p['x'] == self_x) and abs(p['y'] - self_y) <= 3:
                 return ('T')
-            if abs(p['x'] - self_x) <= 3:
+            if (p['y'] == self_y) and abs(p['x'] - self_x) <= 3:
                 return ('T')
-        
-    
+      
     return moves[random.randrange(len(moves))]
 
 if __name__ == "__main__":
